@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Profile & Services</title>
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --accent-color: #ff0080;
+            --text-dark: #1a1a1a;
+            --text-light: #555;
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', 'Segoe UI', sans-serif; /* Cleaner font */
+        }
+
+        /* --- ANIMATED BACKGROUND --- */
+        body {
+            /* 4-color animated gradient */
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- GLASS CARD CONTAINER --- */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px); /* The "Frost" effect */
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            width: 100%;
+            max-width: 750px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            opacity: 0; /* Start hidden for animation */
+            animation: fadeInCard 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        @keyframes fadeInCard {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* --- SECTION 1: PERSONAL INFO --- */
+        .profile-section {
+            display: flex;
+            padding: 40px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            align-items: center;
+            position: relative;
+        }
+
+        .photo-container {
+            flex: 0 0 160px;
+            height: 160px;
+            margin-right: 40px;
+            border-radius: 50%;
+            border: 5px solid rgba(255,255,255,0.8);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            overflow: hidden;
+            /* Floating Animation */
+            animation: floatImage 6s ease-in-out infinite;
+            transition: transform 0.3s;
+        }
+        
+        .photo-container:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        @keyframes floatImage {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .info-container {
+            animation: slideInRight 0.8s ease-out forwards;
+            opacity: 0;
+            animation-delay: 0.3s;
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .info-container h2 {
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            font-size: 28px;
+            font-weight: 700;
+            background: -webkit-linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; /* Gradient Text */
+        }
+
+        .info-row {
+            margin-bottom: 10px;
+            color: var(--text-light);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .label {
+            font-weight: 600;
+            color: var(--text-dark);
+            width: 90px;
+            flex-shrink: 0;
+        }
+
+        /* --- SECTION 2: SERVICES --- */
+        .services-section {
+            padding: 40px;
+        }
+
+        .services-section h3 {
+            text-align: center;
+            color: var(--text-dark);
+            margin-bottom: 25px;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* Underline animation for title */
+        .services-section h3::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -5px;
+            left: 0;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+        .services-section:hover h3::after {
+            width: 100%;
+        }
+
+        .service-list {
+            list-style: none;
+        }
+
+        .service-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            
+            /* Staggered entrance animation setup */
+            opacity: 0; 
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        /* Stagger delays */
+        .service-item:nth-child(1) { animation-delay: 0.6s; }
+        .service-item:nth-child(2) { animation-delay: 0.7s; }
+        .service-item:nth-child(3) { animation-delay: 0.8s; }
+        .service-item:nth-child(4) { animation-delay: 0.9s; }
+        .service-item:nth-child(5) { animation-delay: 1.0s; }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Crazy Hover Effect */
+        .service-item:hover {
+            transform: scale(1.03) translateX(10px);
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .service-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .service-price {
+            font-weight: 800;
+            color: var(--secondary-color);
+            background: rgba(37, 117, 252, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        /* --- SECTION 3: BUTTON --- */
+        .action-section {
+            padding: 0 40px 40px 40px;
+            text-align: center;
+        }
+
+        .book-btn {
+            position: relative;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            border: none;
+            padding: 16px 50px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            overflow: hidden; /* For ripple effect */
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 10px 20px rgba(106, 17, 203, 0.3);
+            z-index: 1;
+        }
+
+        .book-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(106, 17, 203, 0.4);
+        }
+        
+        .book-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Ripple Animation Element */
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            border-radius: 50%;
+            animation: rippleAnim 0.6s linear infinite;
+        }
+
+        @keyframes rippleAnim {
+            0% { width: 0; height: 0; opacity: 0.5; }
+            100% { width: 500px; height: 500px; opacity: 0; }
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 650px) {
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px 20px;
+            }
+            .photo-container {
+                margin-right: 0;
+                margin-bottom: 25px;
+            }
+            .info-row {
+                flex-direction: column;
+                margin-bottom: 15px;
+            }
+            .label {
+                margin-bottom: 5px;
+                color: var(--accent-color);
+            }
+            .service-item:hover {
+                transform: scale(1.02); /* Less movement on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="profile-section">
+            <div class="photo-container">
+                <img src="https://image2url.com/r2/default/images/1768326633192-e045183e-4490-4e35-8b48-5e8dff30d59e.jpeg" alt="User Photo">
+            </div>
+            <div class="info-container">
+                <h2>  Tanu Patra</h2>
+                <div class="info-row">
+                    <span class="label">Address:</span> A26 Gandhinagar, Haldia
+                </div>
+                <div class="info-row">
+                    <span class="label">Gender:</span> Dynamic
+                </div>
+                <div class="info-row">
+                    <span class="label">Email:</span> patrakoushik891@gmail.com
+                </div>
+                <div class="info-row">
+                    <span class="label">Phone:</span> +91 8170858177
+                </div>
+            </div>
+        </div>
+
+        <div class="services-section">
+            <h3>Services Provided</h3>
+            <ul class="service-list">
+                <li class="service-item" onclick="selectService(this)">
+                    <span class="service-name">1. Oil Massage</span>
+                    <span class="service-price">₹ 249</span>
+                </li>
+                <li class="service-item" onclick="selectService(this)">
+                    <span class="service-name">2. Belly Dance</span>
+                    <span class="service-price">₹ 499</span>
+                </li>
+                <li class="service-item" onclick="selectService(this)">
+                    <span class="service-name">3. Bckshot</span>
+                    <span class="service-price">₹ 39/shot</span>
+                </li>
+                <li class="service-item" onclick="selectService(this)">
+                    <span class="service-name">4. Head </span>
+                    <span class="service-price">₹ 169</span>
+                </li>
+                <li class="service-item" onclick="selectService(this)">
+                    <span class="service-name">5. Happy Ending </span>
+                    <span class="service-price">₹ 669</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="action-section">
+            <button class="book-btn" id="bookBtn">Book Now</button>
+        </div>
+    </div>
+
+    <script>
+        /* --- JAVASCRIPT --- */
+        
+        // Add Ripple Effect to Button
+        const btn = document.getElementById('bookBtn');
+        
+        btn.addEventListener('click', function(e) {
+            // 1. Create Ripple
+            let x = e.clientX - e.target.getBoundingClientRect().left;
+            let y = e.clientY - e.target.getBoundingClientRect().top;
+            
+            let ripples = document.createElement('span');
+            ripples.classList.add('ripple');
+            ripples.style.left = x + 'px';
+            ripples.style.top = y + 'px';
+            this.appendChild(ripples);
+            
+            setTimeout(() => {
+                ripples.remove()
+            }, 600);
+
+            // 2. Logic
+            const name = document.querySelector('.info-container h2').innerText;
+            // Introduce a small delay to let the animation play
+            setTimeout(() => {
+                alert(`🚀 Success!\n\nBooking request sent to ${name}.\nWe are preparing your invoice.`);
+            }, 200);
+        });
+
+        // Add selection effect to services
+        function selectService(element) {
+            // Remove active class from all
+            const items = document.querySelectorAll('.service-item');
+            items.forEach(item => {
+                item.style.background = "rgba(255,255,255,0.4)";
+                item.style.borderLeft = "none";
+            });
+
+            // Add active style to clicked
+            element.style.background = "#fff";
+            element.style.borderLeft = "5px solid #6a11cb"; // Primary color
+        }
+    </script>
+
+</body>
+</html>
